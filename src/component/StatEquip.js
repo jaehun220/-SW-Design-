@@ -404,7 +404,7 @@ export default function StatEquip() {
     yesterday.setDate(yesterday.getDate() - 2);
     const year = yesterday.getFullYear();
     const month = ('0' + (yesterday.getMonth() + 1)).slice(-2);
-    const date = ('0' + yesterday.getDate()).slice(-2); 
+    const date = ('0' + yesterday.getDate()).slice(-2);
     const usingday = `${year}-${month}-${date}`;
 
     let currentPath = window.location.pathname;
@@ -417,7 +417,7 @@ export default function StatEquip() {
     const handleMouseEnter = (index, e) => {
         setHoverIndex(index);
         const viewportHeight = window.innerHeight;
-        const hoverDivHeight = (18 * viewportHeight) / 100; 
+        const hoverDivHeight = (18 * viewportHeight) / 100;
         if (e.clientY < viewportHeight / 2) {
             setHoverDivStyle({ top: '18vh', bottom: 'auto' });
         } else {
@@ -1068,7 +1068,7 @@ export default function StatEquip() {
                             <EquipContainer key={index} onMouseEnter={(e) => handleMouseEnter(index, e)} onMouseLeave={handleMouseLeave} style={{ position: 'relative' }}>
                                 {' '}
                                 <HoverDiv show={hoverIndex === index} zIndex={hoverIndex === index ? 5 : 4} {...hoverDivStyle}>
-                                    {!seedring.includes(equip.item_name)&&!noUpgradeEquip.includes(equip.item_equipment_slot) || equip.item_equipment_part === '블레이드' ? (
+                                    {(!seedring.includes(equip.item_name) && !noUpgradeEquip.includes(equip.item_equipment_slot)) || equip.item_equipment_part === '블레이드' ? (
                                         <StarForceIcons current={parseInt(equip.starforce)} level={equip.item_base_option.base_equipment_level} />
                                     ) : null}
 
@@ -1451,7 +1451,7 @@ export default function StatEquip() {
                                             <HoverDown>{equip.item_description}</HoverDown>
                                         </>
                                     )}
-                                </HoverDiv> 
+                                </HoverDiv>
                                 <EquipUpContainer>
                                     <EquipImgContainer imgUrl={equip.item_icon} />
                                     <EquipRightContainer>
@@ -1852,14 +1852,14 @@ const LowerOption = styled.div`
 const AndroidContainer = styled.div``;
 const HoverDiv = styled.div`
     font-family: 'NEXON Lv1 Gothic OTF';
-    font-size:0.8rem;
+    font-size: 0.8rem;
     display: ${(props) => (props.show ? 'block' : 'none')};
     position: absolute;
     top: ${(props) => props.top};
     bottom: ${(props) => props.bottom};
     color: white;
     background-color: #2b2b2b;
-    width: 18vw;
+    width: 18.75rem;
     height: auto;
     align-items: center;
     border: white 5px solid;
@@ -1901,17 +1901,16 @@ const HoverEquipName = styled.div`
     align-items: center;
     justify-content: center;
     text-align: center;
-    font-size:0.8rem;
-    margin-top:0.2rem;
-    margin-bottom:0.3rem;
+    font-size: 0.8rem;
+    margin-top: 0.2rem;
+    margin-bottom: 0.3rem;
 `;
 const HoverEquipGrade = styled.div`
     align-items: center;
     justify-content: center;
     text-align: center;
-    font-size:0.75rem;
-    margin-bottom:0.3rem;
-
+    font-size: 0.75rem;
+    margin-bottom: 0.3rem;
 `;
 const HoverImgLvContainer = styled.div`
     display: flex;
@@ -1928,18 +1927,20 @@ const HoverImg = styled.div`
     margin: 1px;
     box-sizing: border-box;
     background-image: ${(props) => {
-        switch (props.grade) {
-          case '레전드리':
-              return `url(${item_legendary})`;
-          case '유니크':
-              return `url(${item_unique})`;
-          case '에픽':
-              return `url(${item_epic})`;
-          case '레어':
-              return `url(${item_rare})`;
-          default:
-            return `url('data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==')`;      }
-    }}, url(${item_cover}), url(${(props) => props.imgUrl}), url(${item_base});
+            switch (props.grade) {
+                case '레전드리':
+                    return `url(${item_legendary})`;
+                case '유니크':
+                    return `url(${item_unique})`;
+                case '에픽':
+                    return `url(${item_epic})`;
+                case '레어':
+                    return `url(${item_rare})`;
+                default:
+                    return `url('data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==')`;
+            }
+        }},
+        url(${item_cover}), url(${(props) => props.imgUrl}), url(${item_base});
     background-size: contain, 88%, ${(props) => (props.Source === '얼굴장식' || props.Source === '눈장식' || props.Source === '하의' || props.Source === '신발' ? '55%' : '68%')}, 88%;
     background-repeat: no-repeat;
     padding: 20px;
@@ -1947,14 +1948,14 @@ const HoverImg = styled.div`
     margin-right: 5px;
     margin-top: 8px;
     margin-bottom: 8px;
-    background-position: center, left, 0.3rem center , left;
-    width: 3vw;
-    height: 3vw;
+    background-position: center, left, 0.3rem center, left;
+    width: 50px;
+    height: 50px;
 `;
 const HoverEquipslot = styled.div`
     padding-top: 10px;
     padding-left: 16px;
-    font-size:0.7rem;
+    font-size: 0.7rem;
 `;
 
 const HoverStat = styled.div`
@@ -1962,10 +1963,10 @@ const HoverStat = styled.div`
     flex-direction: column;
     padding-left: 16px;
 `;
-const StatRowContainer=styled.div`
-    display:flex;
-    align-items:center;
-    font-size:0.7rem;
+const StatRowContainer = styled.div`
+    display: flex;
+    align-items: center;
+    font-size: 0.7rem;
 `;
 const RowContainer = styled.div`
     display: flex;
@@ -1974,11 +1975,11 @@ const RowContainer = styled.div`
 const HoverTotalStat = styled.div`
     display: flex;
     color: #61f4f4;
-    padding : 1px;
-    font-size:0.7rem;
+    padding: 1px;
+    font-size: 0.7rem;
 `;
 const HoverBaseStat = styled.div`
-    font-size:0.7rem;
+    font-size: 0.7rem;
 `;
 const HoverAddStat = styled.div`
     display: flex;
@@ -1990,7 +1991,7 @@ const HoverEtcStat = styled.div`
 `;
 const HoverStarforceStat = styled.div`
     display: flex;
-    color: #e5b807;    
+    color: #e5b807;
 `;
 const UpgredeRepair = styled.div`
     display: flex;
@@ -2000,7 +2001,7 @@ const CuttableCount = styled.div`
     display: flex;
     padding-bottom: 10px;
     color: #e5b807;
-    font-size:0.7rem;
+    font-size: 0.7rem;
 `;
 const GradeIcon = styled.div`
     width: 15px;
@@ -2040,7 +2041,8 @@ const HoverUp = styled.div`
     padding-top: 10px;
 `;
 const HoverUpStat = styled.div`
-font-size:0.7rem;`;
+    font-size: 0.7rem;
+`;
 const HoverSoul = styled.div`
     color: #ccff00;
     text-align: center;
@@ -2062,13 +2064,13 @@ const HoverUpName = styled.div`
                 return 'transparent';
         }
     }};
-    font-size:0.7rem;
+    font-size: 0.7rem;
 `;
 const HoverDown = styled.div`
     padding-left: 16px;
     padding-bottom: 10px;
     padding-top: 10px;
-    font-size:0.7rem;
+    font-size: 0.7rem;
 `;
 const HoverDownStat = styled.div``;
 const HoverDownName = styled.div`
@@ -2090,10 +2092,10 @@ const HoverDownName = styled.div`
 const HoverSoulOption = styled.div`
     color: #e5e542;
 `;
-const HoverStar=styled.div`
-    justify-content:center;
-    flex-wrap:wrap;
-    text-align:center;
+const HoverStar = styled.div`
+    justify-content: center;
+    flex-wrap: wrap;
+    text-align: center;
 `;
 const StarImage = styled.img`
     width: 0.625rem;

@@ -283,7 +283,6 @@ const CharacterContainer = styled.div`
     background-size: cover;
     backgroun-position: top center;
     color: white;
-    
 `;
 
 const CharacterInfoContainer = styled.div`
@@ -304,14 +303,14 @@ const LastContainer = styled.div`
 
 const CashItemContainer = styled.div`
     display: block;
+    position: relative;
     flex-direction: column;
     justify-content: center;
     background-color: rgba(55, 55, 55, 0.7);
     color: white;
-    padding: 5px;
     width: 9vw;
     border-radius: 10px;
-    font-size: 0.7vw;
+    font-size: 0.8rem;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -319,15 +318,18 @@ const CashItemContainer = styled.div`
 `;
 const CodyBox = styled.div`
     display: flex;
+    padding: 5px;
     flex-direction: column;
+    font-size: 0.938rem;
     padding: 10px 10px 5px 10px;
-    height: 100%;
+    height: 12rem;
 `;
 const MoreCashItemContainer = styled.div`
     display: flex;
     background-color: #1856f2;
     color: white;
-    font-size: 15px;
+    position: relative;
+    font-size: 0.938rem;
     font-family: 'Maplestory Bold';
     justify-content: center;
     align-items: center;
@@ -336,7 +338,10 @@ const MoreCashItemContainer = styled.div`
 const CharacterImage = styled.div`
     background-image: url(${(props) => props.imageUrl});
     background-size: cover;
-    height: 100%;
+    background-repeat: no-repeat;
+    width: 12rem;
+    height: 12rem;
+    padding: 20px;
 `;
 
 const CharacterName = styled.div`
