@@ -41,6 +41,11 @@ const worldMark = {
     제니스: Zenith,
 };
 
+const characterPageElements = document.querySelectorAll('.character-page-element');
+characterPageElements.forEach(element => {
+  element.style.zIndex = '1';
+});
+
 export default function CharacterPage() {
     const maple_api = process.env.REACT_APP_NEXON_OPEN_API2;
     const navigate = useNavigate();
@@ -270,7 +275,9 @@ export default function CharacterPage() {
 }
 const PageContainer = styled.div`
     flex-direction: column;
+    position:relative;
     font-family: 'Cafe24SsurroundAir';
+    z-index:1;
 `;
 
 const CharacterContainer = styled.div`
@@ -406,6 +413,7 @@ const ImformationContainer = styled.div`
     flex-grow: 1;
     height: 100%;
     margin-top: 1vh;
+    z-index:3;
 `;
 
 const TabMenuBar = styled.div`

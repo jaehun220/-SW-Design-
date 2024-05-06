@@ -80,6 +80,11 @@ import superiror from '../picture/item/superior.png';
 
 import exceptional from '../picture/item/exceptional.png';
 
+const statEquipElements = document.querySelectorAll('.stat-equip-element');
+statEquipElements.forEach(element => {
+  element.style.zIndex = '999';
+});
+
 function formatNumber(num) {
     let strNum = String(num);
     let billion = '';
@@ -397,7 +402,7 @@ export default function StatEquip() {
 
     //안드로이드 정보
     const [androidName, setAndroidName] = useState(null);
-    const [androidImg, setAndroidImg] = useState(null);
+    const [androidImg, setAndroidImg] = useState(null);  
 
     const today = new Date();
     const yesterday = new Date(today.getTime());
@@ -1012,7 +1017,7 @@ export default function StatEquip() {
                 </StatBorderContainer>
             </LeftContainer>
 
-            <RightContainer>
+            <RightContainer >
                 <TitleText>
                     장비
                     <ButtonBorder>
@@ -1519,7 +1524,7 @@ export default function StatEquip() {
                             </AndroidContainer>
                         </EquipContainer>
                     ) : null}
-                </EquipInnerContainer>
+                </EquipInnerContainer>                
             </RightContainer>
         </Container>
     );
@@ -1530,6 +1535,7 @@ const Container = styled.div`
     display: flex;
     font-family: 'Cafe24SsurroundAir';
     width: 100%;
+    z-index:5;
 `;
 const TitleText = styled.div`
     width: 100%;
@@ -1553,8 +1559,11 @@ const LeftContainer = styled.div`
     flex-direction: column;
     border: 2px solid #dde3e9;
     width: 21%;
+    max-height: 400px;
     border-radius: 8px;
     margin-right: 0.7vw;
+    transition: height 0.3s ease-in-out;
+    overflow:scroll; 
 `;
 
 const RightContainer = styled.div`
@@ -1562,7 +1571,10 @@ const RightContainer = styled.div`
     border: 2px solid #dde3e9;
     border-radius: 8px;
     width: 80%;
+    max-height: 400px;
     background-color: rgba(233, 234, 238);
+    transition: height 0.3s ease-in-out; 
+    overflow:auto; 
 `;
 const BgImgContainer = styled.div`
     //배경 이미지
@@ -1718,6 +1730,7 @@ const EquipContainer = styled.div`
     border: 2px solid #dde3e9;
     margin-top: 2.5vh;
     width: 100%;
+    max-width: ${props => props.name === '칭호' ? '30%' : '100%'};
     height: 18vh;
     position: relative;
     z-index: 2; // 추가
@@ -1854,12 +1867,12 @@ const HoverDiv = styled.div`
     font-family: 'NEXON Lv1 Gothic OTF';
     font-size: 0.8rem;
     display: ${(props) => (props.show ? 'block' : 'none')};
-    position: absolute;
+    position: fixed;
     top: ${(props) => props.top};
     bottom: ${(props) => props.bottom};
     color: white;
     background-color: #2b2b2b;
-    width: 18.75rem;
+    width: 16rem;
     height: auto;
     align-items: center;
     border: white 5px solid;
@@ -1867,6 +1880,8 @@ const HoverDiv = styled.div`
     border-left: 1px white solid;
     border-right: 1px white solid;
     box-shadow: inset 0 0 0 1px white, 0 0 0 1px #2b2b2b;
+    overflow:visible;
+    z-index:999;
 `;
 
 const HoverCover = styled.div`

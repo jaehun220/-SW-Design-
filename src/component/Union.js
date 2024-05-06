@@ -26,6 +26,7 @@ import Supreme2 from '../picture/Union/Supreme2.webp';
 import Supreme3 from '../picture/Union/Supreme3.webp';
 import Supreme4 from '../picture/Union/Supreme4.webp';
 import Supreme5 from '../picture/Union/Supreme5.webp';
+import { symbol } from 'prop-types';
 
 export default function Union() {
     const maple_api = process.env.REACT_APP_NEXON_OPEN_API2;
@@ -40,6 +41,10 @@ export default function Union() {
     const [artifactLv, setArtifactLV]=useState(null);
     const [artifactExp, setArtifactExp]=useState(null);
     const [artifactPoint,setArtifactPoint]=useState(null);
+    const [artifactName, setArtifactName]=useState(null);
+    const [cristalOprionName1,setCristalOprionName1]=useState(null);
+    const [cristalOprionName2,setCristalOprionName2]=useState(null);
+    const [cristalOprionName3,setCristalOprionName3]=useState(null);
 
     useEffect(() => {
         fetchUserData();
@@ -58,6 +63,9 @@ export default function Union() {
             const getUnionraiderData=await axios.get(`https://open.api.nexon.com/maplestory/v1/user/union-raider?ocid=${ocid}`,{
                 headers: {'x-nxopen-api-key': maple_api},
             });
+            const getUnionArtifactData=await axios.get(`https://open.api.nexon.com/maplestory/v1/user/union-artifact?ocid=${ocid}`,{
+                headers: {'x-nxopen-api-key': maple_api},
+            });
         }      
         catch (error) {
         console.log(error.response);
@@ -65,6 +73,12 @@ export default function Union() {
     };
 
     return (
+        <UnionContainer>
+        <UnionComponent>
+            <TitleText>유니온 아티팩트</TitleText>
+            <MainContainer></MainContainer>
+
+        </UnionComponent>
         <UnionComponent>
             <TitleText>유니온</TitleText>
             <MainContainer>
@@ -74,9 +88,15 @@ export default function Union() {
             <div>ArifactExp : {artifactExp}</div>
             </MainContainer>
         </UnionComponent>
-
+        </UnionContainer>
     );
 }
+const UnionContainer=styled.div`
+    position:relative;
+    display:flex;
+    flex-direction:column;
+ 
+`;
 const UnionComponent=styled.div`
     display:flex;
     flex-direction:column;
