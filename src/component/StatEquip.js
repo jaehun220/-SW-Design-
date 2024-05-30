@@ -419,17 +419,23 @@ export default function StatEquip() {
     const [hoverIndex, setHoverIndex] = useState(null);
     const [hoverDivStyle, setHoverDivStyle] = useState({ top: '18vh', bottom: 'auto' });
 
+    // const handleMouseEnter = (index, e) => {
+    //     setHoverIndex(index);
+    //     const viewportHeight = window.innerHeight;
+    //     const hoverDivHeight = (18 * viewportHeight) / 100;
+    //     if (e.clientY < viewportHeight / 2) {
+    //         setHoverDivStyle({ top: '18vh', bottom: 'auto' });
+    //     } else {
+    //         // 마우스 포인터가 뷰포트의 하단 절반에 있으면 HoverDiv를 위로 표시
+    //         setHoverDivStyle({ top: 'auto', bottom: '18vh' });
+    //     }
+    // };
     const handleMouseEnter = (index, e) => {
         setHoverIndex(index);
-        const viewportHeight = window.innerHeight;
-        const hoverDivHeight = (18 * viewportHeight) / 100;
-        if (e.clientY < viewportHeight / 2) {
-            setHoverDivStyle({ top: '18vh', bottom: 'auto' });
-        } else {
-            // 마우스 포인터가 뷰포트의 하단 절반에 있으면 HoverDiv를 위로 표시
-            setHoverDivStyle({ top: 'auto', bottom: '18vh' });
-        }
+        // 뷰포트의 높이나 마우스 포인터의 위치에 관계없이 HoverDiv를 위로 설정
+        setHoverDivStyle({ top: '18vh', bottom: 'auto' });
     };
+    
 
     const handleMouseLeave = () => {
         setHoverIndex(null);
@@ -586,7 +592,7 @@ export default function StatEquip() {
             });
 
             //어빌리티 정보 불러오기
-            const getCharacterAbility = await axios.get(`https://open.api.nexon.com/maplestory/v1/character/ability?ocid=${ocid}&date=${usingday}`, {
+            const getCharacterAbility = await axios.get(`https://open.api.nexon.com/maplestory/v1/character/ability?ocid=${ocid}`, {
                 headers: { 'x-nxopen-api-key': maple_api },
             });
 
@@ -599,9 +605,7 @@ export default function StatEquip() {
             setPreset3Abilities(ability_preset_3.ability_info);
             //하이퍼스탯 불러오기
             const getHyperStat = await axios.get(
-                `https://open.api.nexon.com/maplestory/v1/character/hyper-stat?ocid=${ocid}&date=${usingday}
-
-            `,
+                `https://open.api.nexon.com/maplestory/v1/character/hyper-stat?ocid=${ocid}`,
                 {
                     headers: { 'x-nxopen-api-key': maple_api },
                 }
@@ -958,7 +962,7 @@ export default function StatEquip() {
                 </StatBorderContainer>
                 <StatBorderContainer>
                     <ButtonBorder>
-                        어빌리티
+                        어빌리티<br></br>
                         <PresetBt onClick={() => handleAbPresetClick(0)} isSelected={selectAbPreset == 0}>
                             프리셋 1
                         </PresetBt>
@@ -984,7 +988,7 @@ export default function StatEquip() {
                 </StatBorderContainer>
                 <StatBorderContainer>
                     <ButtonBorder>
-                        하이퍼스탯
+                        하이퍼스탯<br></br>
                         <PresetBt onClick={() => handleHyperPresetClick(0)} isSelected={selectHyperPreset == 0}>
                             프리셋 1
                         </PresetBt>

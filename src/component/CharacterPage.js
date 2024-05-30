@@ -145,14 +145,14 @@ export default function CharacterPage() {
             setCharacterImage(character_image);
 
             // 캐릭터 인기도 정보 조회 api
-            const getCharacterPopularity = await axios.get(`https://open.api.nexon.com/maplestory/v1/character/popularity?ocid=${ocid}&date=${usingday}`, {
+            const getCharacterPopularity = await axios.get(`https://open.api.nexon.com/maplestory/v1/character/popularity?ocid=${ocid}`, {
                 headers: { 'x-nxopen-api-key': maple_api },
             });
             const { popularity } = getCharacterPopularity.data;
             setPopularityData(popularity);
 
             //캐릭터 장착 헤어, 성형, 피부, 정보 조회 api
-            const getCharacterBeaty = await axios.get(`https://open.api.nexon.com/maplestory/v1/character/beauty-equipment?ocid=${ocid}&date=${usingday}`, {
+            const getCharacterBeaty = await axios.get(`https://open.api.nexon.com/maplestory/v1/character/beauty-equipment?ocid=${ocid}`, {
                 headers: { 'x-nxopen-api-key': maple_api },
             });
             const {
@@ -163,7 +163,7 @@ export default function CharacterPage() {
             setCharacterFace(face_name);
 
             // 캐릭터 캐시 장비 조회 api
-            const getCharacterCashitemEquipment = await axios.get(`https://open.api.nexon.com/maplestory/v1/character/cashitem-equipment?ocid=${ocid}&date=${usingday}`, {
+            const getCharacterCashitemEquipment = await axios.get(`https://open.api.nexon.com/maplestory/v1/character/cashitem-equipment?ocid=${ocid}`, {
                 headers: { 'x-nxopen-api-key': maple_api },
             });
             const { cash_item_equipment_base } = getCharacterCashitemEquipment.data;
@@ -199,7 +199,7 @@ export default function CharacterPage() {
             const Oguild_id = getOguild_id.data.oguild_id;
 
             // 길드 마크 정보 가져오기
-            const getGuildMark = await axios.get(`https://open.api.nexon.com/maplestory/v1/guild/basic?oguild_id=${Oguild_id}&date=${usingday}`, {
+            const getGuildMark = await axios.get(`https://open.api.nexon.com/maplestory/v1/guild/basic?oguild_id=${Oguild_id}`, {
                 headers: { 'x-nxopen-api-key': maple_api },
             });
             const { guild_mark_custom, guild_mark } = getGuildMark.data;
@@ -330,6 +330,9 @@ const CodyBox = styled.div`
     font-size: 0.938rem;
     padding: 10px 10px 5px 10px;
     height: 12rem;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
 `;
 const MoreCashItemContainer = styled.div`
     display: flex;

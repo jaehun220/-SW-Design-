@@ -36,8 +36,11 @@ export default function Union() {
     let ocid = parts[2]; //URL의 파리미터에서 ocid(식별자)를 가져옴
     
     const [data, SetData]=useState(null);
+    //유니온정보
     const [unionLevel, setUnionLever]=useState(null);
     const [unionGrade, setUnionGrade]=useState(null);
+
+    //아티팩트 정보
     const [artifactLv, setArtifactLV]=useState(null);
     const [artifactExp, setArtifactExp]=useState(null);
     const [artifactPoint,setArtifactPoint]=useState(null);
@@ -46,11 +49,16 @@ export default function Union() {
     const [cristalOprionName2,setCristalOprionName2]=useState(null);
     const [cristalOprionName3,setCristalOprionName3]=useState(null);
 
+    //공격대 정보
+    let [unionRaiderStat, setUnion_raider_stat]=useState(["유니온 공격대"]);
+    let [unionOccupiedStat, setUnionOccupiedStat]=useState(["유니온 배치효과"]);
+
     useEffect(() => {
         fetchUserData();
     }, []);
     const fetchUserData = async () => {
         try {
+            //유니온 정보 조회회
             const getUnionData = await axios.get(`https://open.api.nexon.com/maplestory/v1/user/union?ocid=${ocid}`, {
                 headers: { 'x-nxopen-api-key': maple_api },
             });
@@ -60,9 +68,14 @@ export default function Union() {
             setArtifactLV(union_artifact_level);
             setArtifactExp(union_artifact_exp);
             setArtifactPoint(union_artifact_point);
+            //유니온 공격대 정보 조회
             const getUnionraiderData=await axios.get(`https://open.api.nexon.com/maplestory/v1/user/union-raider?ocid=${ocid}`,{
                 headers: {'x-nxopen-api-key': maple_api},
             });
+            const{union_raider_stat,union_occupied_stat}=getUnionraiderData.data;
+            setUnion_raider_stat(union_raider_stat.sort());
+            setUnionOccupiedStat(union_occupied_stat.sort());
+            //유니온 아티팩트 정보조회
             const getUnionArtifactData=await axios.get(`https://open.api.nexon.com/maplestory/v1/user/union-artifact?ocid=${ocid}`,{
                 headers: {'x-nxopen-api-key': maple_api},
             });
@@ -76,17 +89,46 @@ export default function Union() {
         <UnionContainer>
         <UnionComponent>
             <TitleText>유니온 아티팩트</TitleText>
-            <MainContainer></MainContainer>
-
+            <MainContainer>유니온 아티팩트 정보</MainContainer>
         </UnionComponent>
+
         <UnionComponent>
-            <TitleText>유니온</TitleText>
-            <MainContainer>
-            <div>Union level : {unionLevel}</div>
-            <UnionGradeImg grade={unionGrade }></UnionGradeImg>
-            <div>Union Grade : {unionGrade}</div>
-            <div>ArifactExp : {artifactExp}</div>
-            </MainContainer>
+        <TitleText>유니온 공격대</TitleText>
+        <RowContainer>        
+            <UniondDataomponent>            
+                <UnionGradeImg grade={unionGrade}></UnionGradeImg>
+                <div>{unionGrade}</div>
+                <div>Lv {unionLevel}</div>
+            </UniondDataomponent>
+            <ColContainer>
+            <div>~~~<hr></hr></div>
+            <RowContainer>
+                <UnionRaiderComponent>
+                    <MainContainer>
+                        공격대원 효과
+                        {unionRaiderStat.map((stat,index)=>{
+                        return <div key={index} className='list'>
+                            <ul>
+                            <RaiderStat>{stat}</RaiderStat>
+                            </ul>
+                        </div>
+                    })}</MainContainer>
+                </UnionRaiderComponent>
+                <UnionRaiderComponent>
+                    <MainContainer>
+                        공격대 점령 효과
+                        {unionOccupiedStat.map((stat,index)=>{
+                        return <div key={index} className='list'>
+                            <ul>
+                            <RaiderStat>{stat}</RaiderStat>
+                            </ul>
+                        </div>
+                    })}
+                    </MainContainer>
+                </UnionRaiderComponent>
+                </RowContainer>
+                </ColContainer>
+            </RowContainer>            
         </UnionComponent>
         </UnionContainer>
     );
@@ -103,6 +145,23 @@ const UnionComponent=styled.div`
     border: 2px solid #dde3e9;
     border-radius: 8px;
 `;
+const RowContainer=styled.div`
+    display:flex;
+`;
+const ColContainer=styled.div`
+    display:flex;
+    flex-direction:column;
+`;
+const UniondDataomponent=styled.div`
+display:flex;
+flex-direction:row;
+`;
+const UnionRaiderComponent=styled.div`
+display:flex;
+flex-direction:column;
+`;
+const RaiderStat=styled.li`
+font-size:13px`;
 const TitleText = styled.div`
     width: 100%;
     height: 5vh;
@@ -180,6 +239,7 @@ const UnionGradeImg=styled.div`
         default:
             return "";
     }}};
-    width:100px;
+    width:110px;
     height:100px;
+    background-repeat:no-repeat;
 `;
