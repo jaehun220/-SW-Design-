@@ -34,134 +34,140 @@ export default function Union() {
     let currentPath = window.location.pathname;
     let parts = currentPath.split('/');
     let ocid = parts[2]; //URL의 파리미터에서 ocid(식별자)를 가져옴
-    
-    const [data, SetData]=useState(null);
+
+    const [data, SetData] = useState(null);
     //유니온정보
-    const [unionLevel, setUnionLever]=useState(null);
-    const [unionGrade, setUnionGrade]=useState(null);
+    const [unionLevel, setUnionLever] = useState(null);
+    const [unionGrade, setUnionGrade] = useState(null);
 
     //아티팩트 정보
-    const [artifactLv, setArtifactLV]=useState(null);
-    const [artifactExp, setArtifactExp]=useState(null);
-    const [artifactPoint,setArtifactPoint]=useState(null);
-    const [artifactName, setArtifactName]=useState(null);
-    const [cristalOprionName1,setCristalOprionName1]=useState(null);
-    const [cristalOprionName2,setCristalOprionName2]=useState(null);
-    const [cristalOprionName3,setCristalOprionName3]=useState(null);
+    const [artifactLv, setArtifactLV] = useState(null);
+    const [artifactExp, setArtifactExp] = useState(null);
+    const [artifactPoint, setArtifactPoint] = useState(null);
+    const [artifactName, setArtifactName] = useState(null);
+    const [cristalOprionName1, setCristalOprionName1] = useState(null);
+    const [cristalOprionName2, setCristalOprionName2] = useState(null);
+    const [cristalOprionName3, setCristalOprionName3] = useState(null);
 
     //공격대 정보
-    let [unionRaiderStat, setUnion_raider_stat]=useState(["유니온 공격대"]);
-    let [unionOccupiedStat, setUnionOccupiedStat]=useState(["유니온 배치효과"]);
+    let [unionRaiderStat, setUnion_raider_stat] = useState(['유니온 공격대']);
+    let [unionOccupiedStat, setUnionOccupiedStat] = useState(['유니온 배치효과']);
 
     useEffect(() => {
         fetchUserData();
     }, []);
     const fetchUserData = async () => {
         try {
-            //유니온 정보 조회회
+            //유니온 정보 조회
             const getUnionData = await axios.get(`https://open.api.nexon.com/maplestory/v1/user/union?ocid=${ocid}`, {
                 headers: { 'x-nxopen-api-key': maple_api },
             });
-            const {union_level,union_grade,union_artifact_level,union_artifact_exp,union_artifact_point}=getUnionData.data;
+            const { union_level, union_grade, union_artifact_level, union_artifact_exp, union_artifact_point } = getUnionData.data;
             setUnionLever(union_level);
             setUnionGrade(union_grade);
             setArtifactLV(union_artifact_level);
             setArtifactExp(union_artifact_exp);
             setArtifactPoint(union_artifact_point);
             //유니온 공격대 정보 조회
-            const getUnionraiderData=await axios.get(`https://open.api.nexon.com/maplestory/v1/user/union-raider?ocid=${ocid}`,{
-                headers: {'x-nxopen-api-key': maple_api},
+            const getUnionraiderData = await axios.get(`https://open.api.nexon.com/maplestory/v1/user/union-raider?ocid=${ocid}`, {
+                headers: { 'x-nxopen-api-key': maple_api },
             });
-            const{union_raider_stat,union_occupied_stat}=getUnionraiderData.data;
+            const { union_raider_stat, union_occupied_stat } = getUnionraiderData.data;
             setUnion_raider_stat(union_raider_stat.sort());
             setUnionOccupiedStat(union_occupied_stat.sort());
             //유니온 아티팩트 정보조회
-            const getUnionArtifactData=await axios.get(`https://open.api.nexon.com/maplestory/v1/user/union-artifact?ocid=${ocid}`,{
-                headers: {'x-nxopen-api-key': maple_api},
+            const getUnionArtifactData = await axios.get(`https://open.api.nexon.com/maplestory/v1/user/union-artifact?ocid=${ocid}`, {
+                headers: { 'x-nxopen-api-key': maple_api },
             });
-        }      
-        catch (error) {
-        console.log(error.response);
-        }   
+        } catch (error) {
+            console.log(error.response);
+        }
     };
 
     return (
         <UnionContainer>
-        <UnionComponent>
-            <TitleText>유니온 아티팩트</TitleText>
-            <MainContainer>유니온 아티팩트 정보</MainContainer>
-        </UnionComponent>
+            <UnionComponent>
+                <TitleText>유니온 아티팩트</TitleText>
+                <MainContainer>유니온 아티팩트 정보</MainContainer>
+            </UnionComponent>
 
-        <UnionComponent>
-        <TitleText>유니온 공격대</TitleText>
-        <RowContainer>        
-            <UniondDataomponent>            
-                <UnionGradeImg grade={unionGrade}></UnionGradeImg>
-                <div>{unionGrade}</div>
-                <div>Lv {unionLevel}</div>
-            </UniondDataomponent>
-            <ColContainer>
-            <div>~~~<hr></hr></div>
-            <RowContainer>
-                <UnionRaiderComponent>
-                    <MainContainer>
-                        공격대원 효과
-                        {unionRaiderStat.map((stat,index)=>{
-                        return <div key={index} className='list'>
-                            <ul>
-                            <RaiderStat>{stat}</RaiderStat>
-                            </ul>
+            <UnionComponent>
+                <TitleText>유니온 공격대</TitleText>
+                <RowContainer>
+                    <UniondDataomponent>
+                        <UnionGradeImg grade={unionGrade}></UnionGradeImg>
+                        <div>{unionGrade}</div>
+                        <div>Lv {unionLevel}</div>
+                    </UniondDataomponent>
+                    <ColContainer>
+                        <div>
+                            ~~~<hr></hr>
                         </div>
-                    })}</MainContainer>
-                </UnionRaiderComponent>
-                <UnionRaiderComponent>
-                    <MainContainer>
-                        공격대 점령 효과
-                        {unionOccupiedStat.map((stat,index)=>{
-                        return <div key={index} className='list'>
-                            <ul>
-                            <RaiderStat>{stat}</RaiderStat>
-                            </ul>
-                        </div>
-                    })}
-                    </MainContainer>
-                </UnionRaiderComponent>
+                        <RowContainer>
+                            <UnionRaiderComponent>
+                                <MainContainer>
+                                    공격대원 효과
+                                    {unionRaiderStat.map((stat, index) => {
+                                        return (
+                                            <div key={index} className="list">
+                                                <ul>
+                                                    <RaiderStat>{stat}</RaiderStat>
+                                                </ul>
+                                            </div>
+                                        );
+                                    })}
+                                </MainContainer>
+                            </UnionRaiderComponent>
+                            <UnionRaiderComponent>
+                                <MainContainer>
+                                    공격대 점령 효과
+                                    {unionOccupiedStat.map((stat, index) => {
+                                        return (
+                                            <div key={index} className="list">
+                                                <ul>
+                                                    <RaiderStat>{stat}</RaiderStat>
+                                                </ul>
+                                            </div>
+                                        );
+                                    })}
+                                </MainContainer>
+                            </UnionRaiderComponent>
+                        </RowContainer>
+                    </ColContainer>
                 </RowContainer>
-                </ColContainer>
-            </RowContainer>            
-        </UnionComponent>
+            </UnionComponent>
         </UnionContainer>
     );
 }
-const UnionContainer=styled.div`
-    position:relative;
-    display:flex;
-    flex-direction:column;
- 
+const UnionContainer = styled.div`
+    position: relative;
+    display: flex;
+    flex-direction: column;
 `;
-const UnionComponent=styled.div`
-    display:flex;
-    flex-direction:column;
+const UnionComponent = styled.div`
+    display: flex;
+    flex-direction: column;
     border: 2px solid #dde3e9;
     border-radius: 8px;
 `;
-const RowContainer=styled.div`
-    display:flex;
+const RowContainer = styled.div`
+    display: flex;
 `;
-const ColContainer=styled.div`
-    display:flex;
-    flex-direction:column;
+const ColContainer = styled.div`
+    display: flex;
+    flex-direction: column;
 `;
-const UniondDataomponent=styled.div`
-display:flex;
-flex-direction:row;
+const UniondDataomponent = styled.div`
+    display: flex;
+    flex-direction: row;
 `;
-const UnionRaiderComponent=styled.div`
-display:flex;
-flex-direction:column;
+const UnionRaiderComponent = styled.div`
+    display: flex;
+    flex-direction: column;
 `;
-const RaiderStat=styled.li`
-font-size:13px`;
+const RaiderStat = styled.li`
+    font-size: 13px;
+`;
 const TitleText = styled.div`
     width: 100%;
     height: 5vh;
@@ -179,67 +185,68 @@ const TitleText = styled.div`
     align-items: center;
     justify-content: space-between;
 `;
-const MainContainer=styled.div`
-    border-radius:0px 0px 8px 8px;
-    padding:10px;
+const MainContainer = styled.div`
+    border-radius: 0px 0px 8px 8px;
+    padding: 10px;
 `;
-const UnionGradeImg=styled.div`
-    background-image:${props=>{
-    switch(props.grade){
-        case '노비스 유니온 1':
-            return `url(${Novis1})`;
-        case '노비스 유니온 2':
-            return `url(${Novis2})`;
-        case '노비스 유니온 3':
-            return `url(${Novis3})`;
-        case '노비스 유니온 4':
-            return `url(${Novis4})`;
-        case '노비스 유니온 5':
-            return `url(${Novis5})`;
-        case '베테랑 유니온 1':
-            return `url(${Veteran1})`;
-        case '베테랑 유니온 2':
-            return `url(${Veteran2})`;
-        case '베테랑 유니온 3':
-            return `url(${Veteran3})`;
-        case '베테랑 유니온 4':
-            return `url(${Veteran4})`;
-        case '베테랑 유니온 5':
-            return `url(${Veteran5})`;
-        case '마스터 유니온 1':
-            return `url(${Master1})`;
-        case '마스터 유니온 2':
-            return `url(${Master2})`;
-        case '마스터 유니온 3':
-            return `url(${Master3})`;
-        case '마스터 유니온 4':
-            return `url(${Master4})`;
-        case '마스터 유니온 5':
-            return `url(${Master5})`;
-        case '그랜드 마스터 유니온 1':
-            return `url(${GrandMaster1})`;
-        case '그랜드 마스터 유니온 2':
-            return `url(${GrandMaster2})`;
-        case '그랜드 마스터 유니온 3':
-            return `url(${GrandMaster3})`;
-        case '그랜드 마스터 유니온 4':
-            return `url(${GrandMaster4})`;
-        case '그랜드 마스터 유니온 5':
-            return `url(${GrandMaster5})`;
-        case '슈프림 유니온 1':
-            return `url(${Supreme1})`;
-        case '슈프림 유니온 2':
-            return `url(${Supreme2})`;
-        case '슈프림 유니온 3':
-            return `url(${Supreme3})`;
-        case '슈프림 유니온 4':
-            return `url(${Supreme4})`;
-        case '슈프림 유니온 5':
-            return `url(${Supreme5})`;
-        default:
-            return "";
-    }}};
-    width:110px;
-    height:100px;
-    background-repeat:no-repeat;
+const UnionGradeImg = styled.div`
+    background-image: ${(props) => {
+        switch (props.grade) {
+            case '노비스 유니온 1':
+                return `url(${Novis1})`;
+            case '노비스 유니온 2':
+                return `url(${Novis2})`;
+            case '노비스 유니온 3':
+                return `url(${Novis3})`;
+            case '노비스 유니온 4':
+                return `url(${Novis4})`;
+            case '노비스 유니온 5':
+                return `url(${Novis5})`;
+            case '베테랑 유니온 1':
+                return `url(${Veteran1})`;
+            case '베테랑 유니온 2':
+                return `url(${Veteran2})`;
+            case '베테랑 유니온 3':
+                return `url(${Veteran3})`;
+            case '베테랑 유니온 4':
+                return `url(${Veteran4})`;
+            case '베테랑 유니온 5':
+                return `url(${Veteran5})`;
+            case '마스터 유니온 1':
+                return `url(${Master1})`;
+            case '마스터 유니온 2':
+                return `url(${Master2})`;
+            case '마스터 유니온 3':
+                return `url(${Master3})`;
+            case '마스터 유니온 4':
+                return `url(${Master4})`;
+            case '마스터 유니온 5':
+                return `url(${Master5})`;
+            case '그랜드 마스터 유니온 1':
+                return `url(${GrandMaster1})`;
+            case '그랜드 마스터 유니온 2':
+                return `url(${GrandMaster2})`;
+            case '그랜드 마스터 유니온 3':
+                return `url(${GrandMaster3})`;
+            case '그랜드 마스터 유니온 4':
+                return `url(${GrandMaster4})`;
+            case '그랜드 마스터 유니온 5':
+                return `url(${GrandMaster5})`;
+            case '슈프림 유니온 1':
+                return `url(${Supreme1})`;
+            case '슈프림 유니온 2':
+                return `url(${Supreme2})`;
+            case '슈프림 유니온 3':
+                return `url(${Supreme3})`;
+            case '슈프림 유니온 4':
+                return `url(${Supreme4})`;
+            case '슈프림 유니온 5':
+                return `url(${Supreme5})`;
+            default:
+                return '';
+        }
+    }};
+    width: 110px;
+    height: 100px;
+    background-repeat: no-repeat;
 `;

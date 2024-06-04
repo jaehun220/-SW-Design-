@@ -5,8 +5,13 @@ import mushroomImage from '../picture/Orange_Mushroom.png'; // 이미지 불러�
 import bgImg1 from '../picture/Elluel.png';
 import bgImg2 from '../picture/Ellev.png';
 import bgImg3 from '../picture/Arcana.png';
+import mapleLink from '../picture/MapleHomePage.jpg';
+import invenLink from '../picture/Inven.png';
+import ggLink from '../picture/Maplegg.png';
+import Gogo from '../picture/Maple.png';
 import { NavLink } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
+
 export default function Main() {
     return (
         <MainContainer>
@@ -49,10 +54,27 @@ function SearchCharacter() {
     };
 
     return (
-        <SearchContainer onSubmit={handleSearch}>
-            <SearchBar type="text" placeholder="캐릭터명을 입력하세요" value={searchTerm} onChange={handleChange} />
-            <SearchImage src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/icon/search.png" alt="Search" onClick={handleSearch} />
-        </SearchContainer>
+        <HomeContainer>
+            <SearchContainer onSubmit={handleSearch}>
+                <SearchBar type="text" placeholder="캐릭터명을 입력하세요" value={searchTerm} onChange={handleChange} />
+                <SearchImage src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/icon/search.png" alt="Search" onClick={handleSearch} />
+            </SearchContainer>
+
+            <LinkContainer>
+                <LinkBox href="https://maplestory.nexon.com/Home/Main" target="_blank" rel="noreferrer">
+                    <LinkImg src={mapleLink} hoverSrc={Gogo}></LinkImg>
+                    <LinkText>메이플스토리 홈페이지</LinkText>
+                </LinkBox>
+                <LinkBox href="https://maple.inven.co.kr/" target="_blank" rel="noreferrer">
+                    <LinkImg src={invenLink} hoverSrc={Gogo}></LinkImg>
+                    <LinkText>메이플 인벤</LinkText>
+                </LinkBox>
+                <LinkBox href="https://maple.gg/" target="_blank" rel="noreferrer">
+                    <LinkImg src={ggLink} hoverSrc={Gogo}></LinkImg>
+                    <LinkText>메이플GG</LinkText>
+                </LinkBox>
+            </LinkContainer>
+        </HomeContainer>
     );
 }
 
@@ -96,6 +118,10 @@ const TitleImage = styled.img`
     width: 50px;
     height: 50px;
 `;
+const HomeContainer = styled.div`
+    width: 100%;
+    height: auto;
+`;
 
 const SearchContainer = styled.form`
     display: flex;
@@ -123,4 +149,41 @@ const SearchImage = styled.img`
     right: 30px;
     margin: 0;
     cursor: pointer;
+`;
+
+const LinkContainer = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 5vh;
+`;
+
+const LinkBox = styled.a`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+`;
+
+const LinkImg = styled.div`
+    width: 150px;
+    height: 150px;
+    margin-left: 5vw;
+    margin-right: 5vw;
+    border-radius: 50%;
+    background-image: url(${(props) => props.src});
+    background-size: cover;
+    transition: background-image 0.5s;
+    background-repeat: no-repeat;
+    &:hover {
+        background-image: url(${(props) => props.hoverSrc});
+    }
+`;
+
+const LinkText = styled.div`
+    margin-top: 1vh;
+    font-size: 15px;
+    text-align: center;
+    font-family: Maplestory Bold;
+    color: black;
 `;
