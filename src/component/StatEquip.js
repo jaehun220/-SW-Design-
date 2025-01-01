@@ -81,8 +81,8 @@ import superiror from '../picture/item/superior.png';
 import exceptional from '../picture/item/exceptional.png';
 
 const statEquipElements = document.querySelectorAll('.stat-equip-element');
-statEquipElements.forEach(element => {
-  element.style.zIndex = '999';
+statEquipElements.forEach((element) => {
+    element.style.zIndex = '999';
 });
 
 function formatNumber(num) {
@@ -402,7 +402,7 @@ export default function StatEquip() {
 
     //안드로이드 정보
     const [androidName, setAndroidName] = useState(null);
-    const [androidImg, setAndroidImg] = useState(null);  
+    const [androidImg, setAndroidImg] = useState(null);
 
     const today = new Date();
     const yesterday = new Date(today.getTime());
@@ -435,7 +435,6 @@ export default function StatEquip() {
         // 뷰포트의 높이나 마우스 포인터의 위치에 관계없이 HoverDiv를 위로 설정
         setHoverDivStyle({ top: '18vh', bottom: 'auto' });
     };
-    
 
     const handleMouseLeave = () => {
         setHoverIndex(null);
@@ -604,12 +603,9 @@ export default function StatEquip() {
             setPreset2Abilities(ability_preset_2.ability_info);
             setPreset3Abilities(ability_preset_3.ability_info);
             //하이퍼스탯 불러오기
-            const getHyperStat = await axios.get(
-                `https://open.api.nexon.com/maplestory/v1/character/hyper-stat?ocid=${ocid}`,
-                {
-                    headers: { 'x-nxopen-api-key': maple_api },
-                }
-            );
+            const getHyperStat = await axios.get(`https://open.api.nexon.com/maplestory/v1/character/hyper-stat?ocid=${ocid}`, {
+                headers: { 'x-nxopen-api-key': maple_api },
+            });
             const { hyper_stat_preset_1, hyper_stat_preset_2, hyper_stat_preset_3 } = getHyperStat.data;
 
             setPreset1Hyper(hyper_stat_preset_1);
@@ -963,13 +959,13 @@ export default function StatEquip() {
                 <StatBorderContainer>
                     <ButtonBorder>
                         어빌리티<br></br>
-                        <PresetBt onClick={() => handleAbPresetClick(0)} isSelected={selectAbPreset == 0}>
+                        <PresetBt onClick={() => handleAbPresetClick(0)} isSelected={selectAbPreset === 0}>
                             프리셋 1
                         </PresetBt>
-                        <PresetBt onClick={() => handleAbPresetClick(1)} isSelected={selectAbPreset == 1}>
+                        <PresetBt onClick={() => handleAbPresetClick(1)} isSelected={selectAbPreset === 1}>
                             프리셋 2
                         </PresetBt>
-                        <PresetBt onClick={() => handleAbPresetClick(2)} isSelected={selectAbPreset == 2}>
+                        <PresetBt onClick={() => handleAbPresetClick(2)} isSelected={selectAbPreset === 2}>
                             프리셋 3
                         </PresetBt>
                     </ButtonBorder>
@@ -1021,7 +1017,7 @@ export default function StatEquip() {
                 </StatBorderContainer>
             </LeftContainer>
 
-            <RightContainer >
+            <RightContainer>
                 <TitleText>
                     장비
                     <ButtonBorder>
@@ -1528,7 +1524,7 @@ export default function StatEquip() {
                             </AndroidContainer>
                         </EquipContainer>
                     ) : null}
-                </EquipInnerContainer>                
+                </EquipInnerContainer>
             </RightContainer>
         </Container>
     );
@@ -1539,7 +1535,7 @@ const Container = styled.div`
     display: flex;
     font-family: 'Cafe24SsurroundAir';
     width: 100%;
-    z-index:5;
+    z-index: 5;
 `;
 const TitleText = styled.div`
     width: 100%;
@@ -1567,7 +1563,7 @@ const LeftContainer = styled.div`
     border-radius: 8px;
     margin-right: 0.7vw;
     transition: height 0.3s ease-in-out;
-    overflow:scroll; 
+    overflow: scroll;
 `;
 
 const RightContainer = styled.div`
@@ -1577,8 +1573,8 @@ const RightContainer = styled.div`
     width: 80%;
     max-height: 400px;
     background-color: rgba(233, 234, 238);
-    transition: height 0.3s ease-in-out; 
-    overflow:auto; 
+    transition: height 0.3s ease-in-out;
+    overflow: auto;
 `;
 const BgImgContainer = styled.div`
     //배경 이미지
@@ -1734,7 +1730,7 @@ const EquipContainer = styled.div`
     border: 2px solid #dde3e9;
     margin-top: 2.5vh;
     width: 100%;
-    max-width: ${props => props.name === '칭호' ? '30%' : '100%'};
+    max-width: ${(props) => (props.name === '칭호' ? '30%' : '100%')};
     height: 18vh;
     position: relative;
     z-index: 2; // 추가
@@ -1884,8 +1880,8 @@ const HoverDiv = styled.div`
     border-left: 1px white solid;
     border-right: 1px white solid;
     box-shadow: inset 0 0 0 1px white, 0 0 0 1px #2b2b2b;
-    overflow:visible;
-    z-index:999;
+    overflow: visible;
+    z-index: 999;
 `;
 
 const HoverCover = styled.div`

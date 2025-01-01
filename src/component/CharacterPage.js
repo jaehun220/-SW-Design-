@@ -288,12 +288,12 @@ const CharacterContainer = styled.div`
     flex-grow: 1;
     background: url(${bgImg});
     background-size: cover;
-    backgroun-position: top center;
+    background-position: top center;
     color: white;
 `;
 
 const CharacterInfoContainer = styled.div`
-    flex-dirction: column;
+    flex-direction: column;
 `;
 
 const CharacterImageContainer = styled.div`
