@@ -42,8 +42,8 @@ const worldMark = {
 };
 
 const characterPageElements = document.querySelectorAll('.character-page-element');
-characterPageElements.forEach(element => {
-  element.style.zIndex = '1';
+characterPageElements.forEach((element) => {
+    element.style.zIndex = '1';
 });
 
 export default function CharacterPage() {
@@ -275,9 +275,9 @@ export default function CharacterPage() {
 }
 const PageContainer = styled.div`
     flex-direction: column;
-    position:relative;
+    position: relative;
     font-family: 'Cafe24SsurroundAir';
-    z-index:1;
+    z-index: 1;
 `;
 
 const CharacterContainer = styled.div`
@@ -330,9 +330,9 @@ const CodyBox = styled.div`
     font-size: 0.938rem;
     padding: 10px 10px 5px 10px;
     height: 12rem;
-    white-space:nowrap;
-    overflow:hidden;
-    text-overflow:ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 `;
 const MoreCashItemContainer = styled.div`
     display: flex;
@@ -416,7 +416,7 @@ const ImformationContainer = styled.div`
     flex-grow: 1;
     height: 100%;
     margin-top: 1vh;
-    z-index:3;
+    z-index: 3;
 `;
 
 const TabMenuBar = styled.div`
