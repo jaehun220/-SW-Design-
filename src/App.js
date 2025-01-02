@@ -1,5 +1,3 @@
-import logo from './logo.svg';
-import * as react from 'react';
 import styled from 'styled-components';
 import './App.css';
 import React from 'react';
@@ -10,8 +8,6 @@ import Home from './component/Home';
 import Percentage from './component/Percentage';
 import Ranking from './component/Ranking';
 import Footer from './component/Footer';
-import Test1 from './component/Test1';
-import backgroundImage from './picture/Elluel.png';
 import CharacterPage from './component/CharacterPage';
 
 function App() {
